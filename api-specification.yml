@@ -15,10 +15,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/gemeentecode'
         - $ref: '#/components/parameters/burgerservicenummer'
-        - in: query
-          name: regeling
-        - in: query
-          name: maxeinddatum
+        - $ref: '#/components/parameters/regeling'
+        - $ref: '#/components/parameters/maxeinddatum'
+      security:
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Een collectie aanvragen met beschikkingen en producten
@@ -61,11 +61,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/gemeentecode'
         - $ref: '#/components/parameters/burgerservicenummer'
-        - in: query
-          name: regeling
-        - in: query
-          name: maxeinddatum
-          description: Toegewezen producten mogen geen einddatum hebben ouder dan deze datum. Verwijst naar ToegewezenProduct.Einddatum
+        - $ref: '#/components/parameters/regeling'
+        - $ref: '#/components/parameters/maxeinddatum'
+      security:
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Een collectie aanvragen met beschikkingen en producten
@@ -112,6 +111,8 @@ paths:
           required: true
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Een collectie aanvragen met beschikkingen en producten
@@ -157,9 +158,14 @@ paths:
           schema:
             type: string
             enum:
+              - eenheid
+              - frequentie
+              - productCategorie
               - redenBeeindiging
               - redenWijziging
               - regeling
+      security:
+      - ApiKeyAuth: []
       responses:
         '200':
           description: Een collectie van de gevraagde codelijst
@@ -203,6 +209,18 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/burgerservicenummer'
+    regeling:
+      name: regeling
+      in: query
+      schema:
+        type: string
+    maxeinddatum:
+      name: maxeinddatum
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Toegewezen producten mogen geen einddatum hebben ouder dan deze datum. Verwijst naar ToegewezenProduct.Einddatum
   schemas:
     gemeentecode:
       type: "string"
@@ -243,10 +261,6 @@ components:
           format: date
         beschikking:
           $ref: '#/components/schemas/beschikking'
-        beschikteProducten:
-          type: array
-          items:
-            $ref: '#/components/schemas/beschiktProduct'
       required:
         - identificatie
         - regeling
@@ -295,6 +309,10 @@ components:
           format: date
         toelichting:
           type: string
+        beschikteProducten:
+          type: array
+          items:
+            $ref: '#/components/schemas/beschiktProduct'
       required:
         - beschikkingNummer
         - datumAfgifte
@@ -342,8 +360,10 @@ components:
           $ref: '#/components/schemas/leverancier'
         toelichting:
           type: string
-        toewijzing:
-          $ref: '#/components/schemas/toewijzing'
+        toewijzingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/toewijzing'
       required:
         - identificatie
         - product
@@ -373,7 +393,7 @@ components:
           maxLength: 36
         redenWijziging:
           $ref: '#/components/schemas/redenWijziging'
-        levering:
+        leveringen:
           type: array
           items:
             $ref: '#/components/schemas/levering'
@@ -396,7 +416,7 @@ components:
         _embedded:
           type: object
           properties:
-            toegewezenProducten:
+            toewijzingen:
               type: array
               items:
                 $ref: '#/components/schemas/toewijzingHal'
@@ -547,3 +567,9 @@ components:
       properties:
         self:
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halLink"
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
