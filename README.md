@@ -16,7 +16,7 @@ Functionaliteit die met deze API mogelijk gemaakt wordt:
 * open the API-docs (depending on the developer preferences) by browsing to either http://localhost:8020 (Swagger-ui) or http://localhost:8025 (Redoc)
 
 Or view online:
-* [Swagger formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/solviteers/koppeling-regie-backoffice/master/api-specification.yml)
+* [Swagger formaat](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/stipter/koppeling-regie-backoffice/master/api-specification.yml)
 
 # Folder Structure
 
