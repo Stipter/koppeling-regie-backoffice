@@ -1,0 +1,588 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Regie-backoffice API
+  description: "Een open standaard om gegevensuitwisseling tussen regiesystemen en backofficeapplicaties mogelijk te maken.
+  Vanuit gemeenten is er behoefte om gegevens tussen regie- en backofficeapplicaties uit te wisselen.
+  Omdat hier geen standaard voor is vanuit VNG-Realisatie of het Zorginstituut hebben enkele leveranciers (ZorgNed, Solviteers Software) hier zelf het initiatief toe genomen."
+
+paths:
+  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/aanvragen:
+    get:
+      summary: Geeft het klantbeeld van een persoon terug
+      tags:
+        - aanvragen
+      parameters:
+        - $ref: '#/components/parameters/gemeentecode'
+        - $ref: '#/components/parameters/burgerservicenummer'
+        - $ref: '#/components/parameters/regeling'
+        - $ref: '#/components/parameters/maxeinddatum'
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Een collectie aanvragen met beschikkingen en producten
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/aanvraagHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/500"
+        '501':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/501"
+        '503':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/503"
+        'default':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
+
+
+  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen:
+    get:
+      summary: Geeft collectie van toewijzingen terug
+      description: De collectie van toewijzing kan gefilterd worden op basis van regeling of de maximale einddatum
+      tags:
+        - toewijzingen
+      parameters:
+        - $ref: '#/components/parameters/gemeentecode'
+        - $ref: '#/components/parameters/burgerservicenummer'
+        - $ref: '#/components/parameters/regeling'
+        - $ref: '#/components/parameters/maxeinddatum'
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Een collectie aanvragen met beschikkingen en producten
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/toewijzingHalCollectie'
+        '400':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/500"
+        '501':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/501"
+        '503':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/503"
+        'default':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
+
+  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen/{toewijzingnummer}:
+    get:
+      summary: Geeft de details van de toewijzing terug
+      tags:
+        - toewijzingen
+      parameters:
+        - $ref: '#/components/parameters/gemeentecode'
+        - $ref: '#/components/parameters/burgerservicenummer'
+        - in: path
+          name: toewijzingnummer
+          description: iStandaarden ToewijzingNummer
+          required: true
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Een collectie aanvragen met beschikkingen en producten
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/toewijzingHal'
+        '400':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/500"
+        '501':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/501"
+        '503':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/503"
+        'default':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
+
+  /codelijsten/{codelijst}:
+    get:
+      summary: Geeft de inhoud van de opgegeven codelijst terug
+      tags:
+        - codelijsten
+      description: Het opvragen van een collectie van een bepaalde codelijst, bijvoorbeeld productCategorie.
+      parameters:
+        - in: path
+          name: codelijst
+          required: true
+          schema:
+            type: string
+            enum:
+              - eenheid
+              - frequentie
+              - productCategorie
+              - redenBeeindiging
+              - redenWijziging
+              - regeling
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Een collectie van de gevraagde codelijst
+        '400':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/400"
+        '401':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/401"
+        '403':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/403"
+        '406':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/406"
+        '409':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/409"
+        '410':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/410"
+        '415':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/415"
+        '429':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/429"
+        '500':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/500"
+        '501':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/501"
+        '503':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/503"
+        'default':
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
+
+components:
+  parameters:
+    gemeentecode:
+      in: path
+      name: gemeentecode
+      description: CBS gemeentecode
+      required: true
+      schema:
+        $ref: '#/components/schemas/gemeentecode'
+    burgerservicenummer:
+      name: burgerservicenummer
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/burgerservicenummer'
+    regeling:
+      name: regeling
+      in: query
+      schema:
+        type: string
+    maxeinddatum:
+      name: maxeinddatum
+      in: query
+      schema:
+        type: string
+        format: date
+      description: Toegewezen producten mogen geen einddatum hebben ouder dan deze datum. Verwijst naar ToegewezenProduct.Einddatum
+  schemas:
+    gemeentecode:
+      type: "string"
+      title: "gemeentecode"
+      description: "De CBS gemeentecode, Er moeten 4 cijfers aanwezig zijn."
+      pattern: "^[0-9]*$"
+      maxLength: 4
+      minLength: 4
+      example: "0216"
+    burgerservicenummer:
+      type: "string"
+      title: "burgerservicenummer"
+      description: "Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet\
+        \ algemene bepalingen burgerservicenummer. Alle nummers waarvoor geldt\
+        \ dat, indien aangeduid als (s0 s1 s2 s3 s4 s5 s6 s7 s8), het resultaat\
+        \ van (9*s0) + (8*s1) + (7*s2) +...+ (2*s7) - (1*s8) deelbaar is door\
+        \ elf. Er moeten dus 9 cijfers aanwezig zijn."
+      pattern: "^[0-9]*$"
+      maxLength: 9
+      minLength: 9
+      example: "555555021"
+    identificatie:
+      type: string
+
+    aanvraag:
+      type: object
+      description: "Een klantvraag die leidt tot een traject met formele of informele ondersteuning"
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/identificatie'
+        regeling:
+          $ref: '#/components/schemas/regeling'
+        datumAanmelding:
+          type: string
+          format: date
+        datumAanvraag:
+          type: string
+          format: date
+        beschikking:
+          $ref: '#/components/schemas/beschikking'
+      required:
+        - identificatie
+        - regeling
+        - datumAanmelding
+        - datumAanvraag
+    aanvraagHal:
+      allOf:
+        - $ref: '#/components/schemas/aanvraag'
+        - properties:
+            _links:
+              $ref: "#/components/schemas/aanvraag_links"
+    aanvraagHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halCollectionLinks"
+        _embedded:
+          type: object
+          properties:
+            aanvraag:
+              type: array
+              items:
+                $ref: '#/components/schemas/aanvraagHal'
+
+    regeling:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/identificatie'
+        omschrijving:
+          type: string
+      required:
+        - identificatie
+        - omschrijving
+
+    beschikking:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        beschikkingNummer:
+          type: integer
+          format: int32
+        datumAfgifte:
+          type: string
+          format: date
+        toelichting:
+          type: string
+        factuurRegels:
+          type: array
+          items:
+            $ref: ''
+        beschikteProducten:
+          type: array
+          items:
+            $ref: '#/components/schemas/beschiktProduct'
+      required:
+        - beschikkingNummer
+        - datumAfgifte
+
+    factuurRegel:
+      type: object
+      description: ''
+      properties:
+        waarde:
+          type: integer
+        status:
+          type: string
+
+    beschiktProduct:
+      type: object
+      description: "Een product dat door de gemeente is beschikt. Aan het resultaat is te zien of het product is toegewen of afgewzen."
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/identificatie'
+        product:
+          $ref: '#/components/schemas/product'
+        productCategorie:
+          $ref: '#/components/schemas/productCategorie'
+        resultaat:
+          type: string
+          enum:
+            - toegewezen
+            - afgewezen
+        toegewezenProduct:
+          $ref: '#/components/schemas/toegewezenProduct'
+      required:
+        - identificatie
+        - product
+        - resultaat
+
+    toegewezenProduct:
+      type: object
+      description: "Details van een toegewezen product."
+      properties:
+        datumIngangGeldigheid:
+          type: string
+          format: date
+        datumEindeGeldigheid:
+          type: string
+          format: date
+        omvang:
+           $ref: '#/components/schemas/omvang'
+        leveringsvorm:
+          type: string
+          enum:
+            - zin  # zorg in natura
+            - pgb  # persoonsgebonden budget
+        leverancier:
+          $ref: '#/components/schemas/leverancier'
+        toelichting:
+          type: string
+        toewijzingen:
+          type: array
+          items:
+            $ref: '#/components/schemas/toewijzing'
+      required:
+        - identificatie
+        - product
+        - datumIngangGeldigheid
+        - omvang
+
+    toewijzing:
+      type: object
+      description: "Details toewijzing"
+      properties:
+        toewijzingNummer:
+          type: integer
+          format: int32
+        toewijzingsDatumTijd:
+          type: string
+          format: date-time
+        ingangsdatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        leverancier:
+          $ref: '#/components/schemas/leverancier'
+        referentieAanbieder:
+          type: string
+          maxLength: 36
+        redenWijziging:
+          $ref: '#/components/schemas/redenWijziging'
+        leveringen:
+          type: array
+          items:
+            $ref: '#/components/schemas/levering'
+      required:
+        - toewijzingNummer
+        - toewijzingsDatumTijd
+        - ingangsdatum
+        - leverancier
+    toewijzingHal:
+      allOf:
+        - $ref: '#/components/schemas/toewijzing'
+        - properties:
+            _links:
+              $ref: "#/components/schemas/toewijzing_links"
+    toewijzingHalCollectie:
+      type: object
+      properties:
+        _links:
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halCollectionLinks"
+        _embedded:
+          type: object
+          properties:
+            toewijzingen:
+              type: array
+              items:
+                $ref: '#/components/schemas/toewijzingHal'
+
+    product:
+      type: object
+      description: "Een product uit het productenboek"
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/identificatie'
+        productCode: # De productcode in het iWmo- en iJw-berichtenverkeer.
+          type: string
+          minLength: 1
+          maxLength: 5
+        omschrijving:
+          type: string
+      required:
+        - identificatie
+        - omschrijving
+
+    productCategorie:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        omschrijving:
+          type: string
+      required:
+        - code
+        - omschrijving
+
+    omvang:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        volume:
+          type: integer
+          format: int32
+        eenheid:
+          $ref: '#/components/schemas/eenheid'
+        frequentie:
+          $ref: '#/components/schemas/frequentie'
+      required:
+        - volume
+        - eenheid
+        - frequentie
+
+    eenheid:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        omschrijving:
+          type: string
+      required:
+        - code
+        - omschrijving
+
+    frequentie:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 1
+        omschrijving:
+          type: string
+      required:
+        - code
+        - omschrijving
+
+    leverancier:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        identificatie:
+          $ref: '#/components/schemas/identificatie'
+        agbcode: # De AGB-code (Algemeen GegevensBeheer) is een codenummer in een register van zorgverleners of zorgverleningsinstanties.
+          type: string
+          minLength: 8
+          maxLength: 8
+        kvk: # Het KVK-nummer (Kamer van Koophandel) is het nummer van een bedrijf in het Handelsregister.
+          type: string
+        omschrijving:
+          type: string
+      required:
+      - identificatie
+      - omschrijving
+
+    levering:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        begindatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        redenBeeindiging:
+          $ref: '#/components/schemas/redenBeeindiging'
+      required:
+      - begindatum
+
+    redenBeeindiging:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        omschrijving:
+          type: string
+      required:
+        - code
+        - omschrijving
+
+    redenWijziging:
+      type: object
+      description: "Omschrijving object"
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        omschrijving:
+          type: string
+      required:
+        - code
+        - omschrijving
+
+#Links:
+    aanvraag_links:
+      type: object
+      properties:
+        self:
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halLink"
+    toewijzing_links:
+      type: object
+      properties:
+        self:
+          $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halLink"
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Api-Key
+      in: header
