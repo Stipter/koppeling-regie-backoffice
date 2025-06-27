@@ -309,25 +309,44 @@ components:
           format: date
         toelichting:
           type: string
-        factuurRegels:
-          type: array
-          items:
-            $ref: ''
+        contractStatus:
+          type: string
+        betaalMethode:
+          type: string
+        contractWaarde:
+          type: number
+        uitnuttingsPercentage:
+          type: number
         beschikteProducten:
           type: array
           items:
             $ref: '#/components/schemas/beschiktProduct'
+        cakUitsluiting:
+          $ref: '#/components/schemas/cakUitsluiting'
+        factuurRegels:
+          $ref: '#/components/schemas/factuurRegels'
       required:
         - beschikkingNummer
         - datumAfgifte
 
-    factuurRegel:
+    factuurRegels:
       type: object
       description: ''
       properties:
-        waarde:
-          type: integer
-        status:
+        totaalWaarde:
+          type: number
+
+    cakUitsluiting:
+      type: object
+      description: ''
+      properties:
+        startDatum:
+          type: string
+        eindDatum:
+          type: string
+        reden:
+          type: string
+        toelichting:
           type: string
 
     beschiktProduct:
