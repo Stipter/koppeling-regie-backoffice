@@ -7,7 +7,7 @@ info:
   Omdat hier geen standaard voor is vanuit VNG-Realisatie of het Zorginstituut hebben enkele leveranciers (ZorgNed, Solviteers Software) hier zelf het initiatief toe genomen."
 
 paths:
-  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/aanvragen:
+  /v2/gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/aanvragen:
     get:
       summary: Geeft het klantbeeld van een persoon terug
       tags:
@@ -52,7 +52,7 @@ paths:
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
 
 
-  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen:
+  /v2/gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen:
     get:
       summary: Geeft collectie van toewijzingen terug
       description: De collectie van toewijzing kan gefilterd worden op basis van regeling of de maximale einddatum
@@ -97,7 +97,7 @@ paths:
         'default':
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
 
-  /gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen/{toewijzingnummer}:
+  /v2/gemeenten/{gemeentecode}/ingeschrevenpersonen/{burgerservicenummer}/toewijzingen/{toewijzingnummer}:
     get:
       summary: Geeft de details van de toewijzing terug
       tags:
@@ -145,7 +145,7 @@ paths:
         'default':
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/responses/default"
 
-  /codelijsten/{codelijst}:
+  /v2/codelijsten/{codelijst}:
     get:
       summary: Geeft de inhoud van de opgegeven codelijst terug
       tags:
