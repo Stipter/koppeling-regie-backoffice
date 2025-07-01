@@ -388,12 +388,27 @@ components:
           format: date
         contractStatus:
           type: string
+          enum:
+            - Toe te wijzen
+            - Toegewezen
+            - Afgelopen
+            - Geannuleerd
         betaalMethode:
           type: string
+          enum:
+            - ZiN
+            - PGB
+            - Losse Betalingen
+            - Periodieke betalingen
+            - N.V.T.
         contractWaarde:
           type: number
+          description: 'contractWaarde zal een precisie van 2 plekken na de comma hebben, voorbeeld: 100.00'
+          format: float
         uitnuttingsPercentage:
           type: number
+          description: 'uitnuttingsPercentage zal een precisie van 1 plek na de comma hebben, voorbeeld: 50.2'
+          format: float
         leverancier:
           $ref: '#/components/schemas/leverancier'
         referentieAanbieder:
@@ -444,19 +459,29 @@ components:
       properties:
         totaalWaarde:
           type: number
+      required:
+        - totaalWaarde
 
     cakUitsluiting:
       type: object
-      description: 'Informatie over een eventueele uitsluitingen op het contract'
+      description: 'Informatie over een eventuele uitsluitingen op het contract'
       properties:
         startDatum:
+          description: 'Als heleToewijzingUitgesloten "false" is dan is startDatum een verplicht veld, bij true kan het null zijn'
           type: string
         eindDatum:
+          description: 'Als heleToewijzingUitgesloten "false" is dan is eindDatum een verplicht veld, bij true kan het null zijn'
           type: string
         reden:
+          description: 'Als heleToewijzingUitgesloten "false" is dan is reden altijd null'
           type: string
         toelichting:
           type: string
+        heleToewijzingUitgesloten:
+          type: boolean
+      required:
+        - heleToewijzingUitgesloten
+        - toelichting
 
     product:
       type: object
