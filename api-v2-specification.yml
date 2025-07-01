@@ -309,45 +309,13 @@ components:
           format: date
         toelichting:
           type: string
-        contractStatus:
-          type: string
-        betaalMethode:
-          type: string
-        contractWaarde:
-          type: number
-        uitnuttingsPercentage:
-          type: number
         beschikteProducten:
           type: array
           items:
             $ref: '#/components/schemas/beschiktProduct'
-        cakUitsluiting:
-          $ref: '#/components/schemas/cakUitsluiting'
-        factuurRegels:
-          $ref: '#/components/schemas/factuurRegels'
       required:
         - beschikkingNummer
         - datumAfgifte
-
-    factuurRegels:
-      type: object
-      description: ''
-      properties:
-        totaalWaarde:
-          type: number
-
-    cakUitsluiting:
-      type: object
-      description: ''
-      properties:
-        startDatum:
-          type: string
-        eindDatum:
-          type: string
-        reden:
-          type: string
-        toelichting:
-          type: string
 
     beschiktProduct:
       type: object
@@ -418,6 +386,14 @@ components:
         einddatum:
           type: string
           format: date
+        contractStatus:
+          type: string
+        betaalMethode:
+          type: string
+        contractWaarde:
+          type: number
+        uitnuttingsPercentage:
+          type: number
         leverancier:
           $ref: '#/components/schemas/leverancier'
         referentieAanbieder:
@@ -425,6 +401,10 @@ components:
           maxLength: 36
         redenWijziging:
           $ref: '#/components/schemas/redenWijziging'
+        cakUitsluiting:
+          $ref: '#/components/schemas/cakUitsluiting'
+        factuurRegels:
+          $ref: '#/components/schemas/factuurRegels'
         leveringen:
           type: array
           items:
@@ -434,6 +414,11 @@ components:
         - toewijzingsDatumTijd
         - ingangsdatum
         - leverancier
+        - contractStatus
+        - betaalMethode
+        - contractWaarde
+        - uitnuttingsPercentage
+        - factuurRegels
     toewijzingHal:
       allOf:
         - $ref: '#/components/schemas/toewijzing'
@@ -452,6 +437,26 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/toewijzingHal'
+
+    factuurRegels:
+      type: object
+      description: 'De factuur regel data van het contract'
+      properties:
+        totaalWaarde:
+          type: number
+
+    cakUitsluiting:
+      type: object
+      description: 'Informatie over een eventueele uitsluitingen op het contract'
+      properties:
+        startDatum:
+          type: string
+        eindDatum:
+          type: string
+        reden:
+          type: string
+        toelichting:
+          type: string
 
     product:
       type: object
