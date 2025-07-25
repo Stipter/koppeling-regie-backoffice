@@ -404,11 +404,11 @@ components:
         contractWaarde:
           type: number
           description: 'contractWaarde zal een precisie van 2 plekken na de comma hebben, voorbeeld: 100.00'
-          format: float
         uitnuttingsPercentage:
           type: number
           description: 'uitnuttingsPercentage zal een precisie van 1 plek na de comma hebben, voorbeeld: 50.2'
-          format: float
+        uitgeslotenVanCak:
+          type: boolean
         leverancier:
           $ref: '#/components/schemas/leverancier'
         referentieAanbieder:
@@ -416,8 +416,8 @@ components:
           maxLength: 36
         redenWijziging:
           $ref: '#/components/schemas/redenWijziging'
-        cakUitsluiting:
-          $ref: '#/components/schemas/cakUitsluiting'
+        cakUitsluitingInformatie:
+          $ref: '#/components/schemas/cakUitsluitingInformatie'
         factuurRegels:
           $ref: '#/components/schemas/factuurRegels'
         leveringen:
@@ -432,7 +432,7 @@ components:
         - contractStatus
         - betaalMethode
         - contractWaarde
-        - uitnuttingsPercentage
+        - uitnuttingsPercentag
         - factuurRegels
     toewijzingHal:
       allOf:
@@ -462,25 +462,39 @@ components:
       required:
         - totaalWaarde
 
-    cakUitsluiting:
+    cakUitsluitingInformatie:
       type: object
-      description: 'Informatie over een eventuele uitsluitingen op het contract'
       properties:
-        startDatum:
-          description: 'Als heleToewijzingUitgesloten "false" is dan is startDatum een verplicht veld, bij true kan het null zijn'
-          type: string
-        eindDatum:
-          description: 'Als heleToewijzingUitgesloten "false" is dan is eindDatum een verplicht veld, bij true kan het null zijn'
-          type: string
+        heleToewijzingUitgesloten:
+          type: boolean
         reden:
           description: 'Als heleToewijzingUitgesloten "false" is dan is reden altijd null'
           type: string
         toelichting:
           type: string
-        heleToewijzingUitgesloten:
-          type: boolean
+        cakUitsluitingPeriodes:
+          type: array
+          description: 'Lijst van uitsluiten op het contract'
+          items:
+            $ref: '#/components/schemas/cakUitsluiting'
       required:
         - heleToewijzingUitgesloten
+
+    cakUitsluiting:
+      type: object
+      description: 'Informatie over een uitsluiting periode op het contract'
+      properties:
+        startDatum:
+          type: string
+          format: date
+        eindDatum:
+          type: string
+          format: date
+        toelichting:
+          type: string
+      required:
+        - startDatum
+        - eindDatum
         - toelichting
 
     product:
