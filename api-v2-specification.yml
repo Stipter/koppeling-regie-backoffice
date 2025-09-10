@@ -414,10 +414,13 @@ components:
         referentieAanbieder:
           type: string
           maxLength: 36
+          nullable: true
         redenWijziging:
           $ref: '#/components/schemas/redenWijziging'
+          nullable: true
         cakUitsluitingInformatie:
           $ref: '#/components/schemas/cakUitsluitingInformatie'
+          nullable: true
         factuurRegels:
           $ref: '#/components/schemas/factuurRegels'
         leveringen:
