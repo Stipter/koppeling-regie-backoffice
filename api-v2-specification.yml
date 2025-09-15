@@ -480,9 +480,11 @@ components:
           nullable: true
         toelichting:
           type: string
+          nullable: true
         cakUitsluitingPeriodes:
           type: array
           description: 'Lijst van uitsluiten op het contract'
+          nullable: true
           items:
             $ref: '#/components/schemas/cakUitsluiting'
       required:
