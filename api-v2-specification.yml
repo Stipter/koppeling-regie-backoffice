@@ -272,11 +272,13 @@ components:
         - properties:
             _links:
               $ref: "#/components/schemas/aanvraag_links"
+              nullable: true
     aanvraagHalCollectie:
       type: object
       properties:
         _links:
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halCollectionLinks"
+          nullable: true
         _embedded:
           type: object
           properties:
@@ -443,11 +445,13 @@ components:
         - properties:
             _links:
               $ref: "#/components/schemas/toewijzing_links"
+              nullable: true
     toewijzingHalCollectie:
       type: object
       properties:
         _links:
           $ref: "https://raw.githubusercontent.com/open-sociaal-domein/generieke-componenten/master/common.yaml#/components/schemas/halCollectionLinks"
+          nullable: true
         _embedded:
           type: object
           properties:
@@ -473,6 +477,7 @@ components:
         reden:
           description: 'Als heleToewijzingUitgesloten "false" is dan is reden altijd null'
           type: string
+          nullable: true
         toelichting:
           type: string
         cakUitsluitingPeriodes:
@@ -602,8 +607,10 @@ components:
         einddatum:
           type: string
           format: date
+          nullable: true
         redenBeeindiging:
           $ref: '#/components/schemas/redenBeeindiging'
+          nullable: true
       required:
       - begindatum
 
